@@ -30,12 +30,12 @@ for t in range(b): #assigning bombs
 for y in range(h): # assigning numbers
 	for x in range(w): # goes across all columns in each row
 		if field[y][x]=="*":
-			if x==0: # so that the "minesweeper number" does not wrap around the grid to -1
+			if x==0: # so that the "minesweeper number" does not wrap around the grid to -1 -- abs() cannot solve this problem :(
 				z=0
 			else:
 				z=-1
 			for a in range(z,2,1):
-				if y==0: # so that the "minesweeper number" does not wrap around the grid to -1
+				if y==0: # so that the "minesweeper number" does not wrap around the grid to -1 -- abs() cannot solve this problem :(
 					r=0
 				else:
 					r=-1
