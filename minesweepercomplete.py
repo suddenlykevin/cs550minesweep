@@ -1,9 +1,10 @@
 # minesweeper
 # by Kevin Xie
 # CS550 Healey
-
-# A game of minesweeper programmed using 2D lists, recursion, and functions
-
+#
+# A game of minesweeper programmed using 2D lists, recursion, and functions.
+# Organized with comments (can be condensed further)
+#
 # Sources:
 # splitting a string https://stackoverflow.com/questions/961263/two-values-from-one-input-in-python
 # checking if list entry exists: https://stackoverflow.com/questions/843277/how-do-i-check-if-a-variable-exists
@@ -25,15 +26,18 @@ if b>=w*h: # checks if bombs can be generated within the given parameters
 
 def start(): # sets up starting variables and axes
 	global blindfield, firstguess, field, spacesleft
+	# VARIABLE SETUP
 	firstguess = True # if firstguess is true, the bombs have not been placed yet
 	blindfield = [["■"]*w for x in range(h)] # fills grid with ■s and assigns coordinate axes
 	field = [[0]*w for x in range(h)] # fills solution set with 0s
 	spacesleft = w*h-b # the number of unrevealed spaces (used to calculate victory)
+	# X AXIS
 	for x in range(2): # next lines add variable x and y axes to the blind grid for more comfortable UX
 		blindfield.insert(0,list(range(1,w+1))) 
 	blindfield[0]=[x//10 for x in blindfield[0]] # x axis is vertical to maintain correct monospacing (first digit above second digit)
 	blindfield[1]=[x%10 for x in blindfield[1]]
 	blindfield[0].insert(0,"  ")
+	# Y AXIS
 	for y in range(h+1):
 		if y<10:
 			blindfield[y+1].insert(0,"0"+str(y))
@@ -49,7 +53,7 @@ def printField(): # prints the blind grid with revealed spaces
 	guessCheck()
 
 def fieldGenerate(initx,inity): # places the bombs once first space is revealed
-	spaces = w*h
+	spaces = w*h # the number of non-bomb spaces left
 	for t in range(b): # assigning the correct # bombs
 		x,y = random.randrange(w),random.randrange(h)
 		if spaces<=9: # prioritizes the selected space to be 0 unless there are fewer than 9 spaces left, which helps the reveal of more spaces on first step.
@@ -74,14 +78,14 @@ def fieldGenerate(initx,inity): # places the bombs once first space is revealed
 
 def choiceOpen(x,y): # opens the space based on coordinates entered (if zero, then reveal more; if bomb, then lose)
 	global spacesleft
-	if field[y-1][x-1]==0:
+	if field[y-1][x-1]==0: # if the corresponding solution set space is a 0, then commence expanding reveal
 		blindfield[y+1][x]=field[y-1][x-1]
 		spacesleft-=1
 		reveal0(x,y)
-	elif field[y-1][x-1]=="*":
+	elif field[y-1][x-1]=="*": # if the solution coordinate is a bomb, the game ends
 		blindfield[y+1][x]="▲"
 		loseGame()
-	else:
+	else: # if the corresponding solution set space is a number, then space is revealed
 		blindfield[y+1][x]=field[y-1][x-1]
 		spacesleft-=1
 	winCheck()
@@ -105,6 +109,7 @@ def reveal0(x,y): # the "forest fire" effect of revealing touching 0s recursivel
 def guessCheck(): # asks for user to guess/flag and acts accordingly
 	global firstguess
 	guess = list(input("Enter coordinates followed by an \"f\" if you would like to flag/unflag it. \nEG: \"2 5 f\"\n>>> ").split()) # splitting a string https://stackoverflow.com/questions/961263/two-values-from-one-input-in-python
+	# X AND Y
 	try: # authenticates that x and y are integers and do exist. checking if guess[x] exists: https://stackoverflow.com/questions/843277/how-do-i-check-if-a-variable-exists
 		x,y=int(guess[0]),int(guess[1])
 	except ValueError:
@@ -116,6 +121,7 @@ def guessCheck(): # asks for user to guess/flag and acts accordingly
 	if (0>=x or x>w) or (0>=y or y>h): # checks if coordinates are within height and width
 		print("Please enter valid coordinates in the form \"x y\".")
 		guessCheck()
+	# FLAG TOGGLE
 	try: # checks if user wants to flag
 		guess[2]
 		if guess[2] == "f":
@@ -130,6 +136,7 @@ def guessCheck(): # asks for user to guess/flag and acts accordingly
 			print("Please enter an \"f\" or leave the final argument blank.")
 			guessCheck()
 	except IndexError: # if flag is null, then don't flag and continue to look for options
+	# REVEALS
 		if blindfield[y+1][x]=="►":
 			print("You cannot reveal a flagged space. Try somewhere else.") 
 			guessCheck()
@@ -155,7 +162,7 @@ def winCheck(): # if the spaces that remain is equal to the number of bombs plac
 def loseGame(): # loss of game (reveal formatted solution set)
 	for y in range(h):
 			for x in range(w):
-				if blindfield[y+2][x+1]=="■":
+				if blindfield[y+2][x+1]=="■": 
 					blindfield[y+2][x+1]=field[y][x]
 				elif blindfield[y+2][x+1]=="►" and field[y][x]!="*":
 					blindfield[y+2][x+1]="≠"
