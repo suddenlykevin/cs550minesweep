@@ -150,7 +150,6 @@ def guessCheck(): # asks for user to guess/flag and acts accordingly
 	printField()
 
 def winCheck(): # if the spaces that remain is equal to the number of bombs placed, then player wins
-	win=False
 	corFlags=0
 	incFlags=0
 	for y in range(h):
