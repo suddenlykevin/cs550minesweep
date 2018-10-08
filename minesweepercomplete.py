@@ -8,7 +8,8 @@
 # Sources:
 # splitting a string https://stackoverflow.com/questions/961263/two-values-from-one-input-in-python
 # checking if list entry exists: https://stackoverflow.com/questions/843277/how-do-i-check-if-a-variable-exists
-#
+# space opening method inspired by Anan Aramthanapon
+# 
 # On My Honor, I have neither given nor received unauthorized aid.
 # Kevin Xie
 
