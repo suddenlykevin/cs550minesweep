@@ -154,6 +154,7 @@ def winCheck(): # if the spaces that remain is equal to the number of bombs plac
 			for x in range(w):
 				if blindfield[y+2][x+1]=="■" or blindfield[y+2][x+1]=="►":
 					blindfield[y+2][x+1]="☻"
+		print("\n")
 		for x in range(len(blindfield)): # prints in rows and columns rather than just a long list
 			print(*blindfield[x]) # unpacks the list and makes it look grid-like
 		print("\nYOU WIN ☺!\n\n") # proper spacing
@@ -168,6 +169,7 @@ def loseGame(): # loss of game (reveal formatted solution set)
 					blindfield[y+2][x+1]="≠"
 				elif blindfield[y+2][x+1]=="►":
 					blindfield[y+2][x+1]="☻"
+	print("\n")
 	for x in range(len(blindfield)): # prints in rows and columns rather than just a long list
 			print(*blindfield[x]) # unpacks the list and makes it look grid-like
 	print("\nYOU LOSE... \n\n") # proper spacing
