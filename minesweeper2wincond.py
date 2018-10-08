@@ -169,33 +169,33 @@ def winCheck(): # if the spaces that remain is equal to the number of bombs plac
 		print("\n")
 		for x in range(len(blindfield)): # prints in rows and columns rather than just a long list
 			print(*blindfield[x]) # unpacks the list and makes it look grid-like
-		print(“\nYOU WIN ☺!\n\n”) # proper spacing
+		print("\nYOU WIN ☺!\n\n") # proper spacing
 		restart()
 	
 
 def loseGame(): # loss of game (reveal formatted solution set)
 	for y in range(h):
 			for x in range(w):
-				if blindfield[y+2][x+1]==“■”: 
+				if blindfield[y+2][x+1]=="■": 
 					blindfield[y+2][x+1]=field[y][x]
-				elif blindfield[y+2][x+1]==“►” and field[y][x]!=“*”:
-					blindfield[y+2][x+1]=“≠”
-				elif blindfield[y+2][x+1]==“►”:
-					blindfield[y+2][x+1]=“☻”
-	print(“\n”)
+				elif blindfield[y+2][x+1]=="►" and field[y][x]!="*":
+					blindfield[y+2][x+1]="≠"
+				elif blindfield[y+2][x+1]=="►":
+					blindfield[y+2][x+1]="☻"
+	print("\n")
 	for x in range(len(blindfield)): # prints in rows and columns rather than just a long list
 			print(*blindfield[x]) # unpacks the list and makes it look grid-like
-	print(“\nYOU LOSE... \n\n”) # proper spacing
+	print("\nYOU LOSE... \n\n") # proper spacing
 	restart()
 
 def restart(): # function for restarting or exiting the program
-	reYes = input(“Would you like to play again? (y/n) \n\n>>> “).lower()
-	if reYes == “y”: # everything reset
+	reYes = input("Would you like to play again? (y/n) \n\n>>> ").lower()
+	if reYes == "y": # everything reset
 		start()
-	elif reYes == “n”: # os.exit from program
+	elif reYes == "n": # os.exit from program
 		sys.exit()
 	else:
-		print(“Please enter either \”y\” or \”n\”.”)
+		print("Please enter either \"y\" or \"n\".")
 		restart()
 
 start()
