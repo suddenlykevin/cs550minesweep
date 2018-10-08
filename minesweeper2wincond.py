@@ -133,6 +133,7 @@ def guessCheck(): # asks for user to guess/flag and acts accordingly
 			else:
 				print("You cannot flag a revealed space. Try somewhere else.")
 				guessCheck()
+			winCheck()
 		else:
 			print("Please enter an \"f\" or leave the final argument blank.")
 			guessCheck()
@@ -154,24 +155,27 @@ def winCheck(): # if the spaces that remain is equal to the number of bombs plac
 	incFlags=0
 	for y in range(h):
 		for x in range(w):
-			if blindfield[y+2][x+1]=="►" and field[y-1][x-1]=="*":
+			if blindfield[y+2][x+1]=="►" and field[y][x]=="*":
 				corFlags+=1
-			elif blindfield[y+2][x+1]=="►":
+				print(corFlags)
+			elif blindfield[y+2][x+1]=="►" and field[y][x]!="*":
 				incFlags+=1
+				print("incorrect", incFlags)
 	if (corFlags==b and incFlags==0) or spacesleft == 0:
 		for y in range(h):
 			for x in range(w):
-				if blindfield[y+2][x+1]=="■":
+				if blindfield[y+2][x+1]=="■" and field[y][x]=="*":
 					blindfield[y+2][x+1]="►"
 				elif blindfield[y+2][x+1]=="►":
 					blindfield[y+2][x+1]="☻"
+				elif blindfield[y+2][x+1]=="■":
+					blindfield[y+2][x+1]=field[y][x]
 		print("\n")
 		for x in range(len(blindfield)): # prints in rows and columns rather than just a long list
 			print(*blindfield[x]) # unpacks the list and makes it look grid-like
 		print("\nYOU WIN ☺!\n\n") # proper spacing
 		restart()
 	
-
 def loseGame(): # loss of game (reveal formatted solution set)
 	for y in range(h):
 			for x in range(w):
